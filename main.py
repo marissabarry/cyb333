@@ -3,7 +3,9 @@
 #CYB333 Final Project
 #Marissa Barry et. al.
 
-#Using String for easy ASCII functionality
+#Generates a user-inputted number of passwords of user-inputted length utilizing a selection of random ASCII characters
+
+#Imports; using string for easy access to lists of ASCII characters and random for the randomization
 import random, string
 
 #Defining some global variables
