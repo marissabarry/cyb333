@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 #Password Generation Utility
+#CYB333 Final Project
+#Marissa Barry et. al.
+
 #Using String for easy ASCII functionality
 import random, string
 
