@@ -152,7 +152,7 @@ if userYN() is True:
     with open('encryptedoutput.txt','wb') as encrypted_out:
         encrypted_out.write(crypt)
     #Save encryption key to a file
-    with open('key.txt','wb') as keyout:
+    with open('key.key','wb') as keyout:
         keyout.write(key)
     print('Passwords successfully encrypted using the following key (saved as key.txt):\n',key,'\n\nNote: Safeguard this key file to avoid potential data compromise.')
     print('Caution: output.txt is not encrypted and is for ease of initial administration, encryptedoutput.txt is the encrypted version that may be safely retained.')
