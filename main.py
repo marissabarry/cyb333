@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 #Password Generation Utility
 #CYB333 Final Project
-#Marissa Barry et. al.
+#Marissa Barry, Sariah Kilroy, Shantel Jackson, and BriAna Siliga.
 
 #Generates a user-inputted number of passwords of user-inputted length utilizing a selection of random ASCII characters
+#Provides the option to save passwords to a file; produces an encrypted file, a plain-text version (for ease of administration),
+#and a keyfile containing the encryption key.
 
 #Imports; using string for easy access to lists of ASCII characters and random for the randomization
-import random, string
+import random, string, cryptography
+from cryptography.fernet import Fernet
 
 #Defining some global variables
 inputSamples = 0
@@ -129,12 +132,28 @@ bank.close()
 #If so, creates the file output.txt and dumps the passwords into it, one per line
 if userYN() is True:
     print('\nWriting passwords to output.txt')
-    print('\nCaution: passwords should not be stored in this file once used owing to a lack of encryption')
+    
     output = open('output.txt','w')
     for i in genPass:
         fOut = i + '\n'
         output.write(fOut)
     output.close()
     print('Successfully wrote',inputSamples,'passwords to output.txt')
+    #Implement cryptography for outputted file
+    #Generate a key
+    print('Generating encryption key to encrypt output file...')
+    key = Fernet.generate_key()
+    cypher = Fernet(key)
+    with open('output.txt','rb') as file:
+        plaintxt = file.read()
 
+    #Encryption time
+    crypt = cypher.encrypt(plaintxt)
+    with open('encryptedoutput.txt','wb') as encrypted_out:
+        encrypted_out.write(crypt)
+    #Save encryption key to a file
+    with open('key.txt','wb') as keyout:
+        keyout.write(key)
+    print('Passwords successfully encrypted using the following key (saved as key.txt):\n',key,'\n\nNote: Safeguard this key file to avoid potential data compromise.')
+    print('Caution: output.txt is not encrypted and is for ease of initial administration, encryptedoutput.txt is the encrypted version that may be safely retained.')
 
